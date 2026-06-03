@@ -1,0 +1,315 @@
+$date
+	Wed Jun 03 20:34:08 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module alu_tb $end
+$var wire 1 ! z $end
+$var wire 32 " res [31:0] $end
+$var reg 32 # a [31:0] $end
+$var reg 32 $ b [31:0] $end
+$var reg 4 % ctrl [3:0] $end
+$scope module uut $end
+$var wire 32 & a [31:0] $end
+$var wire 4 ' alu_ctrl [3:0] $end
+$var wire 32 ( b [31:0] $end
+$var wire 1 ! zero $end
+$var reg 32 ) result [31:0] $end
+$upscope $end
+$upscope $end
+$scope module cpu_tb $end
+$var reg 1 * clk $end
+$var reg 1 + reset $end
+$scope module uut $end
+$var wire 1 * clk $end
+$var wire 32 , instr [31:0] $end
+$var wire 1 + reset $end
+$var wire 1 - reg_write $end
+$var wire 32 . rd_data2 [31:0] $end
+$var wire 32 / rd_data1 [31:0] $end
+$var wire 32 0 pc_next [31:0] $end
+$var wire 32 1 pc_current [31:0] $end
+$var wire 1 2 mem_write $end
+$var wire 1 3 mem_to_reg $end
+$var wire 1 4 mem_read $end
+$var wire 32 5 imm_ext [31:0] $end
+$var wire 1 6 branch $end
+$var wire 1 7 alu_zero $end
+$var wire 1 8 alu_src $end
+$var wire 32 9 alu_result [31:0] $end
+$var wire 32 : alu_operand2 [31:0] $end
+$var wire 4 ; alu_ctrl [3:0] $end
+$scope module my_alu $end
+$var wire 32 < b [31:0] $end
+$var wire 1 7 zero $end
+$var wire 4 = alu_ctrl [3:0] $end
+$var wire 32 > a [31:0] $end
+$var reg 32 ? result [31:0] $end
+$upscope $end
+$scope module my_control $end
+$var wire 3 @ funct3 [2:0] $end
+$var wire 1 A funct7_bit $end
+$var wire 7 B opcode [6:0] $end
+$var reg 4 C alu_ctrl [3:0] $end
+$var reg 2 D alu_op [1:0] $end
+$var reg 1 8 alu_src $end
+$var reg 1 6 branch $end
+$var reg 1 4 mem_read $end
+$var reg 1 3 mem_to_reg $end
+$var reg 1 2 mem_write $end
+$var reg 1 - reg_write $end
+$upscope $end
+$scope module my_imm_gen $end
+$var wire 32 E instr [31:0] $end
+$var reg 32 F imm_ext [31:0] $end
+$upscope $end
+$scope module my_instr_mem $end
+$var wire 32 G instruction [31:0] $end
+$var wire 32 H pc_addr [31:0] $end
+$var wire 1 I instr $end
+$upscope $end
+$scope module my_pc $end
+$var wire 1 * clk $end
+$var wire 32 J pc_next [31:0] $end
+$var wire 1 + reset $end
+$var reg 32 K pc_out [31:0] $end
+$upscope $end
+$scope module my_reg_file $end
+$var wire 1 * clk $end
+$var wire 5 L rd [4:0] $end
+$var wire 1 + reset $end
+$var wire 1 - rg_wren $end
+$var wire 5 M rs1 [4:0] $end
+$var wire 5 N rs2 [4:0] $end
+$var wire 32 O write_data [31:0] $end
+$var wire 32 P read_data2 [31:0] $end
+$var wire 32 Q read_data1 [31:0] $end
+$var integer 32 R i [31:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module fetch_tb $end
+$var wire 32 S instr [31:0] $end
+$var wire 32 T next_pc [31:0] $end
+$var wire 32 U current_pc [31:0] $end
+$var reg 1 V clk $end
+$var reg 1 W reset $end
+$scope module my_mem $end
+$var wire 32 X instruction [31:0] $end
+$var wire 32 Y pc_addr [31:0] $end
+$var wire 1 Z instr $end
+$upscope $end
+$scope module my_pc $end
+$var wire 1 V clk $end
+$var wire 32 [ pc_next [31:0] $end
+$var wire 1 W reset $end
+$var reg 32 \ pc_out [31:0] $end
+$upscope $end
+$upscope $end
+$scope module top_test $end
+$var wire 32 ] out2 [31:0] $end
+$var wire 32 ^ out1 [31:0] $end
+$var reg 1 _ clk $end
+$var reg 5 ` rd [4:0] $end
+$var reg 1 a reset $end
+$var reg 5 b rs1 [4:0] $end
+$var reg 5 c rs2 [4:0] $end
+$var reg 32 d w_data [31:0] $end
+$var reg 1 e wren $end
+$scope module rf $end
+$var wire 1 _ clk $end
+$var wire 5 f rd [4:0] $end
+$var wire 1 a reset $end
+$var wire 1 e rg_wren $end
+$var wire 5 g rs1 [4:0] $end
+$var wire 5 h rs2 [4:0] $end
+$var wire 32 i write_data [31:0] $end
+$var wire 32 j read_data2 [31:0] $end
+$var wire 32 k read_data1 [31:0] $end
+$var integer 32 l i [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b100000 l
+bx k
+bx j
+bx i
+bx h
+bx g
+bx f
+0e
+bx d
+bx c
+bx b
+1a
+bx `
+0_
+bx ^
+bx ]
+b0 \
+b100 [
+1Z
+b0 Y
+bz X
+1W
+0V
+b0 U
+b100 T
+bz S
+b100000 R
+bx Q
+bx P
+bx O
+bz N
+bz M
+bz L
+b0 K
+b100 J
+1I
+b0 H
+bz G
+b0 F
+bz E
+b0 D
+b0 C
+bz B
+zA
+bz @
+bx ?
+bx >
+b0 =
+bx <
+b0 ;
+bx :
+bx 9
+08
+x7
+06
+b0 5
+04
+03
+02
+b0 1
+b100 0
+bx /
+bx .
+0-
+bz ,
+1+
+0*
+b1111 )
+b1010 (
+b0 '
+b101 &
+b0 %
+b1010 $
+b101 #
+b1111 "
+0!
+$end
+#5000
+b100000 l
+1_
+1V
+#10000
+b100000 R
+b1101 "
+b1101 )
+0_
+0V
+1e
+b101 d
+b101 i
+b1 `
+b1 f
+0a
+1*
+b1 %
+b1 '
+b111 $
+b111 (
+b10100 #
+b10100 &
+#12000
+0W
+#15000
+b1000 T
+b1000 [
+b100 U
+b100 Y
+b100 \
+1_
+1V
+#20000
+b111111110000000000000000 "
+b111111110000000000000000 )
+0_
+0V
+b1010 d
+b1010 i
+b10 `
+b10 f
+0*
+b10 %
+b10 '
+b111111111111111100000000 $
+b111111111111111100000000 (
+b11111111111111110000000000000000 #
+b11111111111111110000000000000000 &
+#25000
+b1100 T
+b1100 [
+b1000 U
+b1000 Y
+b1000 \
+1_
+1V
+0+
+#30000
+b1000 0
+b1000 J
+b100 1
+b100 H
+b100 K
+b1010 ]
+b1010 j
+b101 ^
+b101 k
+b10000 "
+b10000 )
+0_
+0V
+b10 c
+b10 h
+b1 b
+b1 g
+0e
+1*
+b101 %
+b101 '
+b100 $
+b100 (
+b1 #
+b1 &
+#35000
+0Z
+b10000 T
+b10000 [
+b1100 U
+b1100 Y
+b1100 \
+1_
+1V
+#40000
+0_
+0V
+0*
