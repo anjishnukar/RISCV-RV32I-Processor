@@ -9,7 +9,7 @@ module fetch_tb;
 
     // Instantiate PC
     pc my_pc (
-        .clk(clk), .reset(reset), .pc_next(next_pc), .pc_out(current_pc)
+        .clk(clk), .reset(reset), .pc_write(1'b1), .pc_next(next_pc), .pc_out(current_pc)
     );
 
     // Instantiate Instruction Memory

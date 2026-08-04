@@ -1,3 +1,4 @@
-"*.vcd" 
-"riscv_core_sim"
-".DS_Store"
+*.vcd
+*_sim
+*_sim.exe
+.DS_Store
