@@ -4,6 +4,74 @@ This project contains a **5-stage pipelined** implementation of a subset of the 
 
 > **Note:** This directory was originally a single-cycle processor. It has been converted into a full 5-stage pipeline (see [What Changed From Single-Cycle?](#what-changed-from-single-cycle)).
 
+## 🌐 Try It In Your Browser — Interactive Webpage
+
+An **interactive, fully working webpage** for this processor now lives in [`index.html`](./index.html). It simulates the whole datapath **directly in your browser**, with no Verilog toolchain required.
+
+### What the webpage does
+
+The page is a **software simulator of the very same processor** described in this repository. It takes the hardware ideas of the 5-stage pipeline — pipeline registers, forwarding, stalling, flushing — and turns them into an animated model that you can run, pause, and inspect, cycle by cycle. It also ships with a **tiny built-in assembler**, so you can write and run your own RV32I assembly programs without installing any toolchain.
+
+### How to use it (step-by-step instructions)
+
+1. **Open the page.** Either double-click `index.html`, or serve the repository and open it in a browser:
+
+   ```bash
+   # from the repository root
+   python -m http.server 8000
+   # then visit http://localhost:8000
+   ```
+
+2. **Choose a program** using the **Example Programs** dropdown:
+   - **Euclidean GCD (loop + branches)** — branches and loops.
+   - **Fibonacci F(10) (loop)** — loops and adds.
+   - **Load-use hazard demo** — deliberately triggers a load-use stall.
+   - **Array sum (memory + loop)** — loads, stores and loops.
+   - **Logic & Shifts** — bitwise operations and shifts.
+   - **✏ My own program (Code Editor)** — write your own assembly.
+
+3. **Run it** with **▶ Run**, or step cycle-by-cycle with **⏭ Step Clock**. Use the speed selector (Slow / Normal / Fast / Turbo) to change playback speed.
+
+4. **Watch the left panel** — the animated pipeline diagram. **Watch the right panel** — through its tabs.
+
+### Understanding the controls and the layout
+
+| Control | Meaning |
+|---------|---------|
+| Architecture buttons (**Single-Cycle**, **5-Stage Pipeline**, **What is RISC-V?**) | Switch the datapath view or the explanatory page |
+| Example Programs | Load a preset program or your own code from the editor |
+| **↻ Reset** | Clear registers, pipeline registers and counters, restart from the first instruction |
+| **⏭ Step Clock** | Advance the simulation by exactly one clock cycle |
+| **▶ Run** | Run continuously at the selected speed until the program halts (or reaches the 2000-instruction limit) |
+| Speed selector | Slow / Normal / Fast / Turbo playback speed |
+| Live stats (**Mode**, **CPI**, **Stalls**, **Flush bubbles**, **Clock Cycles**, **PC**) | Real-time telemetry of the running simulation |
+
+### The theory — what happens on the website when you press "Run"
+
+- **Single-Cycle view:** the whole instruction — fetch, decode, execute, memory access, write-back — happens within a single clock cycle. The animation highlights the path of the instruction currently executing.
+- **5-Stage Pipeline view:** the work is split into five stages — **Fetch (IF), Decode (ID), Execute (EX), Memory (MEM), Write-Back (WB)** — joined by pipeline registers (**IF/ID, ID/EX, EX/MEM, MEM/WB**). While one instruction is in Write-Back, the next is in Memory, and so on, so multiple instructions overlap. The animated wires show the flow and the stage boxes light up as the instruction progresses. Hazard handling is visualized through the **Hazard Unit** and **Forwarding Unit** boxes:
+  - **Data hazard → forwarding:** a later instruction needing an earlier result bypasses the register file via forwarding instead of waiting.
+  - **Load-use hazard → stall:** the Hazard Unit stalls the pipeline and inserts a bubble when a loaded value is needed too early.
+  - **Control hazard → flush:** branches are predicted *not-taken*; a taken branch flushes the wrongly fetched instructions.
+
+- **Live statistics explained:** **CPI** (cycles per instruction) — how many cycles an instruction needs on average; **stalls** — how many bubble insertions were caused by hazards; **flush bubbles** — how many instructions were discarded due to branch flushing; **Clock Cycles** — total simulation cycles elapsed; **PC** — program counter of the instruction about to run.
+
+### Understanding the panels
+
+- **Left panel — pipeline visualization:** animated schematic; glowing wires show the active data path; the stage holding the current instruction is highlighted; pipeline registers light up during transfers.
+- **Right panel — tabs:**
+  - **Numeric Trace:** step-by-step log of executed instructions (assembly, register writes, values), with the latest instruction highlighted — the story of the program.
+  - **Register File:** live table of `x0`–`x31` (with ABI names such as `a0`, `t1`, `sp`) with their current values.
+  - **Code Editor:** textarea for your own assembly; **Assemble & Run** turns your text (labels, comments, instructions) into machine words and executes it. The program ends at `ebreak` or after 2000 instructions; data memory is 64 KB starting at address 0.
+
+### Suggested experiments
+
+1. Run the **Load-Use hazard demo** and watch the Hazard Unit stall.
+2. Run **Euclidean GCD** and watch branches/loops.
+3. Use the **Code Editor** to assemble a tiny program (for example `addi x1, x0, 5` / `addi x2, x0, 7` / `add x3, x1, x2` / `ebreak`) and press **Assemble & Run**.
+
+> The in-browser simulator models the same RV32I subset as the RTL above — R-type, I-type, loads, stores, shifts, and branches — including the load-use stalls, forwarding, and branch-flush behavior.
+
 ## Big-Picture Analogy
 
 Imagine a factory assembly line where a product moves through **five stations**:
@@ -151,6 +219,7 @@ This small program deliberately exercises **every hazard the processor supports*
 | `alu_tb.v`        | Testbench for the ALU                                          |
 | `fetch_tb.v`      | Testbench for the fetch stage (PC + instruction memory)        |
 | `reg_test.v`      | Testbench for the register file                                |
+| `index.html`      | Interactive in-browser RV32I Datapath Simulator (webpage)     |
 | `*.vcd`           | Waveform dump files (simulation output, viewable in GTKWave)   |
 | `*_sim` / `*_sim.exe` | Compiled simulation executables (generated by iverilog)   |
 
